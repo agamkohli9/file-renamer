@@ -30,7 +30,9 @@ command = ('ls', dir)
 for i in range(length):
     #set file names
     i_file = dir + '/' + str(subprocess.Popen(command, stdout=subprocess.PIPE).stdout.read())[2:14]
-    o_file = dir + '/../renamedImages/' + sheet.loc[int((i + len(order)) / len(order)) - 1, 'code'] + '.' + order[i % len(order)]
+
+    current_num = int((i + len(order)) / len(order))
+    o_file = dir + '/../renamedImages/' + sheet.loc[sheet.num == current_num, 'code'].values[0] + '.' + order[i % len(order)]
 
     #do unix command to change file name
     subprocess.call(['mv', i_file, o_file])
